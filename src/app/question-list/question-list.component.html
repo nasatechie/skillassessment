@@ -1,0 +1,8 @@
+<ng-container *ngFor="let question of questionList">
+  <mat-card class="question-card">
+    <mat-card-title>{{ question.question }}</mat-card-title>
+    <mat-card-subtitle>{{ question.answer }}</mat-card-subtitle>
+  </mat-card>
+</ng-container>
+
+<a href="/newQuestion">New Question</a>

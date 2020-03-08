@@ -1,0 +1,27 @@
+ <div class="form-container">
+     <a routerLink='/login' id='goback'> Go Back </a>
+     <h2> Join Now </h2>
+     <span class="error" *ngIf='error' [@fallIn]='state'> {{error}} </span>
+     <form #formData='ngForm' (ngSubmit)='onSubmit(formData, role)'>
+        <input type='text' placeholder='Enter Email Address' (ngModel)="email" name='email' class='txt' required/>
+        <input type='password' placeholder='Enter Password' (ngModel)="password" name='password' class='txt' required/>
+
+         <!-- <mat-radio-group aria-label="Select an option" style="margin: 5%;">
+           <mat-radio-button value="admin">Admin</mat-radio-button>
+           <mat-radio-button value="user">User</mat-radio-button>
+         </mat-radio-group> -->
+
+         <mat-form-field>
+           <mat-label>Select Role</mat-label>
+           <mat-select (selectionChange)="select_role($event)">
+             <mat-option *ngFor="let role of roles" [value]="role">
+               {{role}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+
+        <button type='submit' [disabled]='!formData.valid' class='basic-btn'> Create my account </button>
+        <a routerLink='/email' class='alc'> Already have an account? <strong> Login </strong></a>
+     </form>
+     
+ </div>

@@ -1,0 +1,9 @@
+<div class="form-container">
+    <img src='assets/images/lock.svg' alt="no image found" id='lock'>
+    <span class="error" *ngIf="error"> {{error}} </span>
+    <button (click)="loginWithFacebook()" id="fb" style="background:#3B5998 url('assets/images/facebook.svg') no-repeat; background-size: contain;"> Login with Facebook </button>
+    <button (click)="loginWithGoogle()" id="google" style="background: #fff  url('assets/images/google.svg') no-repeat; background-size: contain;"> Login with Google </button>
+    <button routerLink='/email' id="email" style="background: #ECECEC  url('assets/images/email.svg') no-repeat; background-size: contain;"> Login with Email </button>
+    <a routerLink='/signup' routerLinkActive='active' class="alc"> No account? <strong> Create One </strong></a>
+
+</div>
