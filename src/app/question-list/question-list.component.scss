@@ -1,3 +1,20 @@
-.question-card{
+.question-container {
+  display: flex;
+  align-items: flex-start;
+  .question-accordion {
     margin-bottom: 10px;
+    flex: 9;
+  }
+  .action-buttons {
+    margin: 5px;
+    flex: 2;
+  }
+}
+
+.side-nav {
+    width: 500px;
+}
+
+.container {
+    height: 100%;
 }

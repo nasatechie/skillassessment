@@ -1,8 +1,55 @@
-<ng-container *ngFor="let question of questionList">
-  <mat-card class="question-card">
-    <mat-card-title>{{ question.question }}</mat-card-title>
-    <mat-card-subtitle>{{ question.answer }}</mat-card-subtitle>
-  </mat-card>
-</ng-container>
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    #sidenav
+    class="side-nav"
+    (keydown.escape)="sidenav.close()"
+    disableClose
+    position="end"
+  >
+    <app-new-question
+      [question]="questionList[0]"
+      (close)="onSideNavClose($event)"
+    ></app-new-question>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <mat-select [(ngModel)]="filter.lang" (ngModelChange)="filterRecords()">
+        <mat-option *ngFor="let lang of languages$ | async" [value]="lang.id">
+          {{ lang.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Skill Level</mat-label>
+      <mat-select [(ngModel)]="filter.skill" (ngModelChange)="filterRecords()">
+        <mat-option *ngFor="let skill of skills$ | async" [value]="skill.id">
+          {{ skill.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div
+      *ngFor="let question of questionList; let i = index"
+      class="question-container"
+    >
+      <mat-expansion-panel class="question-accordion">
+        <mat-expansion-panel-header>
+          {{ question.question }}
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          {{ question.answer }}
+        </mat-panel-description>
+      </mat-expansion-panel>
+      <div class="action-buttons">
+        <button>Edit</button>
+        <button (click)="readQuestion(i)">Read</button>
+      </div>
+    </div>
+
+    <button md-raised-button (click)="sidenav.open()">Toggle drawer</button>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
 <a href="/newQuestion">New Question</a>

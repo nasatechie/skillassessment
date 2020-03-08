@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { SpeechRecognitionService } from 'src/app/services/SpeechRecognition.service';
+import { SpeechService } from 'src/app/services/speech.service';
 
 @Directive({
   selector: '[appRecord]'
@@ -17,10 +17,10 @@ export class RecordDirective implements OnInit {
   @Output('textCaptured') textCaptured: EventEmitter<
     string
   > = new EventEmitter();
-  constructor(private speechRecognitionService: SpeechRecognitionService) {}
+  constructor(private speechRecognitionService: SpeechService) {}
 
   ngOnInit() {
-    this.recognition = this.speechRecognitionService.setupSpeech();
+    this.recognition = this.speechRecognitionService.setupSpeechRecognition();
 
     this.recognition.onresult = event => {
       if (typeof event.results == 'undefined') {

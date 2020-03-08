@@ -1,22 +1,21 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../consts/question';
 import { NewQuestionService } from './new-question.service';
 import { Router } from '@angular/router';
-import { SpeechRecognitionService } from '../services/SpeechRecognition.service';
-import { moveIn, fallIn, moveInLeft } from '../router.animations';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-question',
   templateUrl: './new-question.component.html',
-  styleUrls: ['./new-question.component.scss'],
-  animations: [moveIn(), fallIn(), moveInLeft()],
-  host: { '[@moveIn]': '' },
-  // encapsulation: ViewEncapsulation.Emulated
+  styleUrls: ['./new-question.component.scss']
 })
 export class NewQuestionComponent implements OnInit {
-  state: string = '';
   formGroup: FormGroup;
+  languages$: Observable<any[]>;
+  skills$: Observable<any[]>;
+  @Input() question: Question;
+  @Output() close = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -27,17 +26,29 @@ export class NewQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       question: ['', [Validators.required]],
-      answer: ['', [Validators.required]]
+      answer: ['', [Validators.required]],
+      skill: ['', Validators.required],
+      language: ['', Validators.required]
     });
-  }
 
-  logout() {}
+    this.languages$ = this.newQuestionService.getLanguages();
+    this.skills$ = this.newQuestionService.getSkills();
+
+    if (this.question) {
+      this.formGroup.patchValue({ ...this.question });
+    }
+  }
 
   onSubmit() {
     const question: Question = this.formGroup.value;
-    return this.newQuestionService.addQuestion(question).subscribe(_ => {
-      this.router.navigate(['/questionList']);
-    });
+    // return this.newQuestionService.addQuestion(question).subscribe(_ => {
+    //   this.router.navigate(['/questionList']);
+    // });
+    this.close.emit(question);
+  }
+
+  onCancel() {
+    this.close.emit();
   }
 
   questionCaptured(questionText: string) {
