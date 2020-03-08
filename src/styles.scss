@@ -1,46 +1,43 @@
 body {
-    // background:#E2E4E6;
-    padding-top:4em;
+  margin: 0;
 }
 
 .form-container {
-    background:white;
-    padding:3.5em;
-    width:500px;
-    position:fixed;
-    left:50%;
-    margin-left:-250px;
+  background: white;
+  padding: 3.5em;
+  width: 500px;
+  position: fixed;
+  left: 50%;
+  margin-left: -250px;
 }
 
 h2 {
-    margin: 1.7em 0 .9em 0;
+  margin: 1.7em 0 0.9em 0;
 }
 
 .alc {
-    text-align:center;
-    display:block;
-    margin: 15px 0;
+  text-align: center;
+  display: block;
+  margin: 15px 0;
 }
 
 .error {
-    background:#f1f0ef;
-    padding:1em;
-    width:100%;
-    display:block;
-    margin-bottom:20px;
+  background: #f1f0ef;
+  padding: 1em;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
 }
 
 #goback {
-    font-weight:bold;
-    text-transform:uppercase;
-    font-size:.8em;
-    color:#3B8598;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: #3b8598;
 }
 #goback span {
-    font-size:1em;
+  font-size: 1em;
 }
-
-
 
 .loading {
   width: 30px;
@@ -54,13 +51,12 @@ h2 {
   border-radius: 50%;
 }
 
-
 .loading:after {
   content: '';
   position: absolute;
   width: 40px;
   height: 10px;
-  background: #E2E4E6;
+  background: #e2e4e6;
   top: 10px;
   left: -5px;
   animation: spin 1.2s infinite;
@@ -72,20 +68,19 @@ h2 {
   }
 }
 
-
 @media (max-width: 600px) {
-    body {
-        padding-top:1.2em;
-    }
+  body {
+    padding-top: 1.2em;
+  }
 
-    .form-container {
-        padding:1.2em;
-        width:90%;
-        margin-left:-45%;
-    }
-    button {
-        font-size:1em;
-    }
+  .form-container {
+    padding: 1.2em;
+    width: 90%;
+    margin-left: -45%;
+  }
+  button {
+    font-size: 1em;
+  }
 }
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

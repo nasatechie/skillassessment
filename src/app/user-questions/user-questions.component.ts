@@ -36,6 +36,7 @@ export class UserQuestionsComponent implements OnInit {
   }
 
   fetchQuestions() {
+    console.log(this.criteria);
     this.questionListService
       .getUserQuestions(this.criteria)
       .subscribe(qList => {

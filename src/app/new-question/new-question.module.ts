@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NewQuestionComponent } from './new-question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-// import { SpeechModule } from 'ngx-speech';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [NewQuestionComponent],
@@ -17,15 +17,9 @@ import { SharedModule } from '../shared/shared.module';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
-    // SpeechModule
+    SharedModule,
+    MatButtonModule
   ],
-  // providers: [
-  //   {
-  //     provide: 'SPEECH_LANG',
-  //     useValue: 'en-US'
-  //   }
-  // ],
   exports: [NewQuestionComponent]
 })
 export class NewQuestionModule {}

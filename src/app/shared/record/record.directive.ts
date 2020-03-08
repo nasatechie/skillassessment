@@ -12,7 +12,7 @@ import { SpeechService } from 'src/app/services/speech.service';
 })
 export class RecordDirective implements OnInit {
   recognition: any;
-  private _isRecording = false;
+  isRecording = false;
 
   @Output('textCaptured') textCaptured: EventEmitter<
     string
@@ -39,19 +39,19 @@ export class RecordDirective implements OnInit {
     };
 
     this.recognition.onstart = event => {
-      this._isRecording = true;
+      this.isRecording = true;
       console.log('capture started');
     };
 
     this.recognition.onend = event => {
-      this._isRecording = false;
+      this.isRecording = false;
       console.log('capture ended');
     };
   }
 
   @HostListener('click')
   buttonClicked() {
-    if (this._isRecording) {
+    if (this.isRecording) {
       this.recognition.stop();
     } else {
       this.recognition.start();

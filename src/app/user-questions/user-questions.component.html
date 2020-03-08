@@ -1,20 +1,27 @@
-<mat-form-field>
-  <mat-label>Language</mat-label>
-  <mat-select [(ngModel)]="criteria.language">
-    <mat-option *ngFor="let lang of languages$ | async" [value]="lang.id">
-      {{ lang.value }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Skill Level</mat-label>
-  <mat-select [(ngModel)]="criteria.skill">
-    <mat-option *ngFor="let skill of skills$ | async" [value]="skill.id">
-      {{ skill.value }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<button (click)="fetchQuestions()">Get Questions</button>
+<div class="action-bar">
+  <div class="filters">
+    <span class="filter-text">Filter By:</span>
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <mat-select [(ngModel)]="criteria.language">
+        <mat-option *ngFor="let lang of languages$ | async" [value]="lang.id">
+          {{ lang.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Skill Level</mat-label>
+      <mat-select [(ngModel)]="criteria.skill">
+        <mat-option *ngFor="let skill of skills$ | async" [value]="skill.id">
+          {{ skill.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="fetchQuestions()">
+    Get Questions
+  </button>
+</div>
 <div class="question-container" *ngIf="formGroup">
   <form class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-accordion>
@@ -43,6 +50,6 @@
         </mat-panel-description>
       </mat-expansion-panel>
     </mat-accordion>
-    <button type="submit">Submit</button>
+    <button class="btn-submit" mat-raised-button color="primary" type="submit">Submit</button>
   </form>
 </div>

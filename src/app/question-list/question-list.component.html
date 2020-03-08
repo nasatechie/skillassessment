@@ -6,30 +6,51 @@
     disableClose
     position="end"
   >
-    <app-new-question
-      [question]="questionToEdit"
-      (close)="onSideNavClose($event)"
-    ></app-new-question>
+    <div class="drawer-question-panel">
+      <app-new-question
+        [question]="questionToEdit"
+        (close)="onSideNavClose($event)"
+      ></app-new-question>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-form-field>
-      <mat-label>Language</mat-label>
-      <mat-select [(ngModel)]="filter.lang" (ngModelChange)="filterRecords()">
-        <mat-option *ngFor="let lang of languages$ | async" [value]="lang.id">
-          {{ lang.value }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Skill Level</mat-label>
-      <mat-select [(ngModel)]="filter.skill" (ngModelChange)="filterRecords()">
-        <mat-option *ngFor="let skill of skills$ | async" [value]="skill.id">
-          {{ skill.value }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button (click)="addNewQuestion()">New Question</button>
+    <div class="action-bar">
+      <div class="filters">
+        <span class="filter-text">Filter By:</span>
+        <mat-form-field>
+          <mat-label>Language</mat-label>
+          <mat-select
+            [(ngModel)]="filter.lang"
+            (ngModelChange)="filterRecords()"
+          >
+            <mat-option
+              *ngFor="let lang of languages$ | async"
+              [value]="lang.id"
+            >
+              {{ lang.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Skill Level</mat-label>
+          <mat-select
+            [(ngModel)]="filter.skill"
+            (ngModelChange)="filterRecords()"
+          >
+            <mat-option
+              *ngFor="let skill of skills$ | async"
+              [value]="skill.id"
+            >
+              {{ skill.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" (click)="addNewQuestion()">
+        New Question
+      </button>
+    </div>
     <div
       *ngFor="let question of questionList; let i = index"
       class="question-container"
@@ -43,8 +64,17 @@
         </mat-panel-description>
       </mat-expansion-panel>
       <div class="action-buttons">
-        <button (click)="editQuestion(question)">Edit</button>
-        <button (click)="readQuestion(i)">Read</button>
+        <button
+          mat-raised-button
+          mat-mini-fab
+          color="primary"
+          (click)="editQuestion(question)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="readQuestion(i)">
+          Read
+        </button>
       </div>
     </div>
   </mat-sidenav-content>
