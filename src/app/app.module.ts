@@ -20,6 +20,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { UserQuestionsModule } from './user-questions/user-questions.module';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAq7w7JjM9xaOczSSB_KoWHMffMPnpiZ3U',
@@ -48,7 +49,8 @@ const firebaseConfig = {
     FormsModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    UserQuestionsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

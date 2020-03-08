@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { EmailComponent } from './email/email.component';
 import { AuthService } from './auth/auth.service';
+import { UserQuestionsComponent } from './user-questions/user-questions.component';
 const routes: Routes = [
   {
     path: 'questionList',
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'newQuestion',
     component: NewQuestionComponent,
+    // canActivate: [AuthService]
+  },
+  {
+    path: 'userQuestions',
+    component: UserQuestionsComponent,
     // canActivate: [AuthService]
   },
   {

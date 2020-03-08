@@ -1,41 +1,48 @@
 export const QUESTIONS = [
   {
+    id: '1',
     skill: 1,
     language: 1,
     question: 'JS Novice',
     answer: 'a 1'
   },
   {
+    id: '2',
     skill: 1,
     language: 2,
     question: 'JS intermediate',
     answer: 'a 2'
   },
   {
+    id: '3',
     skill: 2,
     language: 1,
     question: 'Java Novice',
     answer: 'a 3'
   },
   {
+    id: '4',
     skill: 2,
     language: 2,
     question: 'Java Intermediate',
     answer: 'a 3'
   },
   {
+    id: '5',
     skill: 3,
     language: 1,
     question: '.Net Novice',
     answer: 'a 3'
   },
   {
+    id: '6',
     skill: 3,
     language: 2,
     question: '.Net Intermediate',
     answer: 'a 3'
   },
   {
+    id: '7',
     question: 'I want to record a question that print the text in the textbox',
     answer: 'I want to record and answer for the same question asked about',
     skill: 2,
