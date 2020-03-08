@@ -7,7 +7,7 @@
     position="end"
   >
     <app-new-question
-      [question]="questionList[0]"
+      [question]="questionToEdit"
       (close)="onSideNavClose($event)"
     ></app-new-question>
   </mat-sidenav>
@@ -29,7 +29,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
+    <button (click)="addNewQuestion()">New Question</button>
     <div
       *ngFor="let question of questionList; let i = index"
       class="question-container"
@@ -43,13 +43,11 @@
         </mat-panel-description>
       </mat-expansion-panel>
       <div class="action-buttons">
-        <button>Edit</button>
+        <button (click)="editQuestion(question)">Edit</button>
         <button (click)="readQuestion(i)">Read</button>
       </div>
     </div>
-
-    <button md-raised-button (click)="sidenav.open()">Toggle drawer</button>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<a href="/newQuestion">New Question</a>
+<!-- <a href="/newQuestion">New Question</a> -->

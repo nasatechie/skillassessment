@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../consts/question';
 import { NewQuestionService } from './new-question.service';
@@ -10,7 +18,7 @@ import { Observable } from 'rxjs';
   templateUrl: './new-question.component.html',
   styleUrls: ['./new-question.component.scss']
 })
-export class NewQuestionComponent implements OnInit {
+export class NewQuestionComponent implements OnInit, OnChanges {
   formGroup: FormGroup;
   languages$: Observable<any[]>;
   skills$: Observable<any[]>;
@@ -33,17 +41,18 @@ export class NewQuestionComponent implements OnInit {
 
     this.languages$ = this.newQuestionService.getLanguages();
     this.skills$ = this.newQuestionService.getSkills();
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
     if (this.question) {
       this.formGroup.patchValue({ ...this.question });
+    } else if (this.formGroup) {
+      this.formGroup.reset();
     }
   }
 
   onSubmit() {
-    const question: Question = this.formGroup.value;
-    // return this.newQuestionService.addQuestion(question).subscribe(_ => {
-    //   this.router.navigate(['/questionList']);
-    // });
+    const question: Question = { ...this.question, ...this.formGroup.value };
     this.close.emit(question);
   }
 

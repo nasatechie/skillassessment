@@ -18,6 +18,7 @@ export class QuestionListComponent implements OnInit {
   skills$: Observable<any[]>;
   filter: any = {};
   allQuestions: Question[] = [];
+  questionToEdit: Question;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   constructor(
@@ -51,14 +52,24 @@ export class QuestionListComponent implements OnInit {
     this.sidenav.close();
   }
 
+  addNewQuestion() {
+    this.questionToEdit = null;
+    this.sidenav.open();
+  }
+
+  editQuestion(q: Question) {
+    this.questionToEdit = { ...q };
+    this.sidenav.open();
+  }
+
   filterRecords() {
     console.log(this.filter);
     const { skill, lang } = this.filter;
     this.questionList = this.allQuestions.filter(q => {
       // console.log(!skill && !lang);
       // console.log(skill && lang && skill === q.skill && lang === q.language);
-      console.log(skill && !lang && skill === q.skill);
-      console.log(lang && !skill && lang === q.language);
+      // console.log(skill && !lang && skill === q.skill);
+      // console.log(lang && !skill && lang === q.language);
       return (
         (!skill && !lang) ||
         (skill && lang && skill === q.skill && lang === q.language) ||
