@@ -8,9 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
+import { SkillPipe } from '../skill.pipe';
+import { LangPipe } from '../lang.pipe';
 
 @NgModule({
-  declarations: [UserQuestionsComponent],
+  declarations: [UserQuestionsComponent, SkillPipe, LangPipe],
   imports: [
     CommonModule,
     MatSelectModule,
@@ -22,6 +24,6 @@ import { SharedModule } from '../shared/shared.module';
     MatButtonModule,
     SharedModule
   ],
-  exports: [UserQuestionsComponent]
+  exports: [UserQuestionsComponent, SkillPipe, LangPipe]
 })
 export class UserQuestionsModule {}

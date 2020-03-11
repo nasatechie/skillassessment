@@ -5,7 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { Observable, from } from 'rxjs';
 // import { do, map, take } from 'rxjs/operators';
-
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 
 @Injectable({
@@ -13,8 +13,11 @@ import * as firebase from 'firebase/app';
 })
 export class AuthService {
   user: User;
-  constructor(public afAuth: AngularFireAuth, public router: Router) {
-    
+  constructor(
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    private AF: AngularFirestore
+  ) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
@@ -34,12 +37,9 @@ export class AuthService {
   //       this.router.navigate(['/login']);
   //     }
   //   })
-  // } 
+  // }
   async login(email: string, password: string) {
-    return await this.afAuth.auth.signInWithEmailAndPassword(
-      email,
-      password
-    );
+    return await this.afAuth.auth.signInWithEmailAndPassword(email, password);
     // console.log('result is', result);
     // this.router.navigate(['questionList']);
   }
@@ -47,13 +47,17 @@ export class AuthService {
     return await this.afAuth.auth.createUserWithEmailAndPassword(
       email,
       password
-    )
+    );
   }
   async sendEmailVerification() {
     return await this.afAuth.auth.currentUser.sendEmailVerification();
   }
   async sendPasswordResetEmail(passwordResetEmail: string) {
     return await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+  }
+  async checkRole() {
+    return this.AF.collection('users', ref => ref.where('uuid', '==', JSON.parse(localStorage.getItem('user')).uid))
+    .valueChanges();
   }
   async logout() {
     await this.afAuth.auth.signOut();
@@ -65,10 +69,14 @@ export class AuthService {
     return user !== null;
   }
   async loginWithGoogle() {
-    return await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    return await this.afAuth.auth.signInWithPopup(
+      new auth.GoogleAuthProvider()
+    );
   }
   async loginWithFacebook() {
-    console.log('inside facebook')
-    return await this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider());
+    console.log('inside facebook');
+    return await this.afAuth.auth.signInWithPopup(
+      new auth.FacebookAuthProvider()
+    );
   }
 }

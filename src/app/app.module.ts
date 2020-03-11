@@ -19,8 +19,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserQuestionsModule } from './user-questions/user-questions.module';
+import { AddskilltechComponent } from './addskilltech/addskilltech.component';
+// import { LangPipe } from './lang.pipe';
+// import { SkillPipe } from './skill.pipe';
+// import { LangsplitPipe } from './langsplit.pipe';
+// import { SkillsplitPipe } from './skillsplit.pipe';
+// import { splitPipe } from './new-question/new-question.component';
+// import { SplitPipe } from './split.pipe';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAq7w7JjM9xaOczSSB_KoWHMffMPnpiZ3U',
@@ -33,7 +40,19 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, EmailComponent, SignupComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    EmailComponent,
+    SignupComponent,
+    AddskilltechComponent,
+    // LangPipe,
+    // SkillPipe,
+    // LangsplitPipe,
+    // SkillsplitPipe,
+    // splitPipe,
+    // SplitPipe
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,11 +66,14 @@ const firebaseConfig = {
     AngularFirestoreModule,
     AngularFireAuthModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSnackBarModule,
     MatRadioModule,
     MatSelectModule,
-    UserQuestionsModule
+    UserQuestionsModule,
+    // SplitPipe
   ],
+  // exports: [SplitPipe],
   providers: [AuthService],
   bootstrap: [AppComponent]
 })

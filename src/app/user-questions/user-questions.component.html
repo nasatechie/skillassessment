@@ -4,16 +4,16 @@
     <mat-form-field>
       <mat-label>Language</mat-label>
       <mat-select [(ngModel)]="criteria.language">
-        <mat-option *ngFor="let lang of languages$ | async" [value]="lang.id">
-          {{ lang.value }}
+        <mat-option *ngFor="let lang of (skills$ | async | lang)" [value]="lang">
+          {{ lang }}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Skill Level</mat-label>
       <mat-select [(ngModel)]="criteria.skill">
-        <mat-option *ngFor="let skill of skills$ | async" [value]="skill.id">
-          {{ skill.value }}
+        <mat-option *ngFor="let skill of (skills$ | async | skill)" [value]="skill">
+          {{ skill }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -50,6 +50,6 @@
         </mat-panel-description>
       </mat-expansion-panel>
     </mat-accordion>
-    <button class="btn-submit" mat-raised-button color="primary" type="submit">Submit</button>
+    <button class="btn-submit" mat-raised-button color="primary" type="submit" [disabled]='disabled'>Submit</button>
   </form>
 </div>

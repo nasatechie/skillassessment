@@ -9,9 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { NewQuestionModule } from '../new-question/new-question.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { LangsplitPipe } from '../langsplit.pipe';
+import { SkillsplitPipe } from '../skillsplit.pipe';
 
 @NgModule({
-  declarations: [QuestionListComponent],
+  declarations: [QuestionListComponent, LangsplitPipe, SkillsplitPipe],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,6 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
     NewQuestionModule,
     MatIconModule
   ],
-  exports: [QuestionListComponent]
+  exports: [QuestionListComponent, LangsplitPipe, SkillsplitPipe]
 })
 export class QuestionListModule {}

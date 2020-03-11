@@ -7,10 +7,11 @@ import { SignupComponent } from './signup/signup.component';
 import { EmailComponent } from './email/email.component';
 import { AuthService } from './auth/auth.service';
 import { UserQuestionsComponent } from './user-questions/user-questions.component';
+import { AddskilltechComponent } from './addskilltech/addskilltech.component';
 const routes: Routes = [
   {
     path: 'questionList',
-    component: QuestionListComponent,
+    component: QuestionListComponent
     // canActivate: [AuthService]
   },
   {
@@ -27,12 +28,17 @@ const routes: Routes = [
   },
   {
     path: 'newQuestion',
-    component: NewQuestionComponent,
+    component: NewQuestionComponent
     // canActivate: [AuthService]
   },
   {
     path: 'userQuestions',
-    component: UserQuestionsComponent,
+    component: UserQuestionsComponent
+    // canActivate: [AuthService]
+  },
+  {
+    path: 'addskill',
+    component: AddskilltechComponent
     // canActivate: [AuthService]
   },
   {

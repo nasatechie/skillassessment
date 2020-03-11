@@ -12,6 +12,7 @@ import { Question } from '../consts/question';
 import { NewQuestionService } from './new-question.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-question',
@@ -28,7 +29,8 @@ export class NewQuestionComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private newQuestionService: NewQuestionService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,18 @@ export class NewQuestionComponent implements OnInit, OnChanges {
 
   onSubmit() {
     const question: Question = { ...this.question, ...this.formGroup.value };
+    console.log('queston is', question.skill.toString());
+    if (question.skill) {
+      this.newQuestionService
+        .addQuestion(question)
+        .then(data => {
+          this._snackBar.open('Question Added', 'OK', { duration: 5000 });
+          this.formGroup.reset();
+        })
+        .catch(err => {
+          console.log('err is', err);
+        });
+    }
     this.close.emit(question);
   }
 
@@ -68,5 +82,15 @@ export class NewQuestionComponent implements OnInit, OnChanges {
   answerCaptured(answerText: string) {
     const aFormEle = this.formGroup.get('answer');
     aFormEle.setValue(aFormEle.value + answerText);
+  }
+
+  addSkill(): void {
+    console.log('addskill');
+    this.router.navigate(['/addskill']);
+  }
+
+  viewQuestions(): void {
+    this.close.emit();
+    this.router.navigate(['/questionList']);
   }
 }

@@ -30,11 +30,25 @@ export class EmailComponent implements OnInit {
       .then(res => {
         console.log('res is', res);
         if (res.user.emailVerified) {
-          this.router.navigate(['newQuestion']);
+          this.AuthService.checkRole().then( role => {
+            console.log('role is', role);
+            role.subscribe(data => {
+              console.log('data in observable is', data);
+              if (data[0]['role'] === 'user') {
+                this.router.navigate(['userQuestions']);
+              } else if (data[0]['role'] === 'admin') {
+                this.router.navigate(['newQuestion']);
+              }
+            })
+          })
         } else {
-          this._snackBar.open('It is mandatory to verify your email before login', 'OK', {
-            duration: 5000
-          });
+          this._snackBar.open(
+            'It is mandatory to verify your email before login',
+            'OK',
+            {
+              duration: 5000
+            }
+          );
         }
       })
       .catch(err => {

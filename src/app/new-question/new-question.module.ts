@@ -7,9 +7,12 @@ import { NewQuestionComponent } from './new-question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { SplitSkillPipe } from '../split.pipe';
+import { SplitLangPipe } from '../split.pipe';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
-  declarations: [NewQuestionComponent],
+  declarations: [NewQuestionComponent, SplitSkillPipe, SplitLangPipe],
   imports: [
     CommonModule,
     MatInputModule,
@@ -18,8 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule
   ],
-  exports: [NewQuestionComponent]
+  exports: [NewQuestionComponent, SplitSkillPipe, SplitLangPipe]
 })
 export class NewQuestionModule {}

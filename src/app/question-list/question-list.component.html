@@ -25,10 +25,10 @@
             (ngModelChange)="filterRecords()"
           >
             <mat-option
-              *ngFor="let lang of languages$ | async"
-              [value]="lang.id"
+              *ngFor="let lang of (skills$ | async | langsplit)"
+              [value]="lang"
             >
-              {{ lang.value }}
+              {{ lang }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -39,17 +39,22 @@
             (ngModelChange)="filterRecords()"
           >
             <mat-option
-              *ngFor="let skill of skills$ | async"
-              [value]="skill.id"
+              *ngFor="let skill of (skills$ | async | skillsplit)"
+              [value]="skill"
             >
-              {{ skill.value }}
+              {{ skill }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+      <div style="float: right;">
+      <button mat-raised-button color="primary" (click)="addSkill()">
+        Add Skill
+      </button>
       <button mat-raised-button color="primary" (click)="addNewQuestion()">
         New Question
       </button>
+      </div>
     </div>
     <div
       *ngFor="let question of questionList; let i = index"
@@ -69,11 +74,18 @@
           mat-mini-fab
           color="primary"
           (click)="editQuestion(question)"
+          [disabled]="question.uuid != loggedInUserId"
         >
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-raised-button color="primary" (click)="readQuestion(i)">
+        <!-- <button mat-raised-button color="primary" (click)="readQuestion(i)">
           Read
+        </button> -->
+        <button mat-mini-fab color="ascent" (click)="readQuestion(i)">
+          <mat-icon aria-hidden="false" >record_voice_over</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="deleteQuestion(i)" [disabled]="question.uuid != loggedInUserId">
+          <mat-icon aria-hidden="false" >delete</mat-icon>
         </button>
       </div>
     </div>

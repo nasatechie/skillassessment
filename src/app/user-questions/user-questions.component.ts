@@ -8,6 +8,7 @@ import { SpeechService } from '../services/speech.service';
 import { Question } from '../consts/question';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-questions',
@@ -21,12 +22,14 @@ export class UserQuestionsComponent implements OnInit {
   languages$: Observable<any[]>;
   skills$: Observable<any[]>;
   formGroup: FormGroup;
+  disabled: boolean;
 
   constructor(
     private questionListService: QuestionListService,
     private newQuestionService: NewQuestionService,
     private speechService: SpeechService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -36,14 +39,22 @@ export class UserQuestionsComponent implements OnInit {
   }
 
   fetchQuestions() {
-    console.log(this.criteria);
-    this.questionListService
-      .getUserQuestions(this.criteria)
-      .subscribe(qList => {
-        this.questionList = [...qList];
-        const qFormGroup = this.buildFormControls(qList);
-        this.formGroup = this.fb.group(qFormGroup);
+    console.log('this.criteria', this.criteria);
+    this.questionListService.getUserQuestions(this.criteria).then(data => {
+      data.subscribe(qList => {
+        console.log('data is', qList);
+        if(qList.length > 0) {
+          this.disabled = false;
+          this.questionList = [...qList];
+          const qFormGroup = this.buildFormControls(qList);
+          this.formGroup = this.fb.group(qFormGroup);
+        }
+        else {
+          this.questionList = [];
+          this.disabled = true;
+        }
       });
+    });
   }
 
   answerCaptured(answerText: string, { id }: Question) {
@@ -54,7 +65,14 @@ export class UserQuestionsComponent implements OnInit {
   onSubmit() {
     console.log(this.formGroup.value);
     const answers = this.processAnswers();
-    this.questionListService.postUserAnswers(answers);
+    this.questionListService
+      .postUserAnswers(answers, this.criteria.language, this.criteria.skill)
+      .then(data => {
+        this._snackBar.open('Answers submitted', 'OK', {
+          duration: 5000
+        });
+        this.disabled = true;
+      });
   }
 
   onExpanded(question: Question) {
@@ -79,6 +97,7 @@ export class UserQuestionsComponent implements OnInit {
 
   private processAnswers(): Partial<Question>[] {
     const qIds = Object.keys(this.formGroup.value);
+    console.log('this.formgroup', this.formGroup.value);
     return qIds.map(qId => ({ id: qId, answer: this.formGroup.value[qId] }));
   }
 }

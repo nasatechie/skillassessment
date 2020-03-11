@@ -5,6 +5,7 @@ import { SpeechService } from '../services/speech.service';
 import { Observable } from 'rxjs';
 import { NewQuestionService } from '../new-question/new-question.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-list',
@@ -19,12 +20,14 @@ export class QuestionListComponent implements OnInit {
   filter: any = {};
   allQuestions: Question[] = [];
   questionToEdit: Question;
+  loggedInUserId: string = '';
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   constructor(
     private questionListService: QuestionListService,
     private newQuestionService: NewQuestionService,
-    private speechService: SpeechService
+    private speechService: SpeechService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +35,8 @@ export class QuestionListComponent implements OnInit {
       this.allQuestions = qList;
       this.questionList = [...this.allQuestions];
     });
+
+    this.loggedInUserId = JSON.parse(localStorage.getItem('user')).uid;
 
     this.languages$ = this.newQuestionService.getLanguages();
     this.skills$ = this.newQuestionService.getSkills();
@@ -47,6 +52,10 @@ export class QuestionListComponent implements OnInit {
     speechSynthesis.speak(this.speechConfig);
   }
 
+  deleteQuestion(qIndex: number) {
+    console.log('qIndex is', qIndex);
+  }
+
   onSideNavClose(question: Question) {
     console.log(question);
     this.sidenav.close();
@@ -60,6 +69,10 @@ export class QuestionListComponent implements OnInit {
   editQuestion(q: Question) {
     this.questionToEdit = { ...q };
     this.sidenav.open();
+  }
+
+  addSkill(): void {
+    this.router.navigate(['addskill']);
   }
 
   filterRecords() {
